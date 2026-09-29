@@ -232,6 +232,12 @@ class RemoteFilesTest(OpsDemoTestCase):
         self.assertIn("reload nginx", self.calls())
         self.assertNotIn("✗", result["stderr"])
 
+    def test_deleting_again_after_the_last_site_says_there_is_none(self) -> None:
+        # The submenu is built when chosen; after the only site is gone its "删除站点" item is still there.
+        result = self.menu("4", "2", "1", "y", "2", "0", "0")
+        self.assertIn("没有站点可以删除。", result["stdout"])
+        self.assertNotIn("✗", result["stderr"])
+
 
 class RemoteFilesOverHttpTest(OpsDemoTestCase):
     def setUp(self) -> None:
@@ -255,7 +261,9 @@ class RemoteFilesOverHttpTest(OpsDemoTestCase):
         self.stop_server()
         offline = self.menu("6", "10", "0")
         self.assertIn("sysctl.conf 已经是推荐值,没有改动。", offline["stdout"])
-        self.assertIn("✗ Could not download", offline["stderr"])
+        # Both downloads fail; each is reported and the cached files stay in use.
+        self.assertEqual(2, offline["stdout"].count("没有更新,继续用缓存里的旧文件:Could not download"))
+        self.assertNotIn("✗", offline["stderr"])
 
 
 class QuietHandler(SimpleHTTPRequestHandler):

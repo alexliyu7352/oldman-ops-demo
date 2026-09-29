@@ -27,6 +27,10 @@ async def reload_nginx() -> None:
 
 
 async def delete_site() -> None:
+    # The submenu keeps this item after the last site is deleted, so check again when it is chosen.
+    if not sites():
+        tui.info("没有站点可以删除。")
+        return
     site = tui.choose("删除哪个站点", sites())
     if not tui.confirm(f"删除 {site}?", default=False):
         return

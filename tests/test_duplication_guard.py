@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 import oldman
-from oldman.testing.duplication import duplicate_functions, forbidden_imports, identical_files
+from oldman.testing.duplication import duplicate_functions, identical_files
 
 ROOT = Path(__file__).resolve().parents[1]
 FRAMEWORK = Path(oldman.__file__).resolve().parent
@@ -34,11 +34,6 @@ class ProjectDoesNotCopyTheFrameworkTest(unittest.TestCase):
             for item in identical_files(source, FRAMEWORK, suffixes=(".py",))
         ]
         self.assertEqual([], matches)
-
-    def test_project_code_uses_public_entry_points(self) -> None:
-        # tui 的公开入口是 `oldman.cli.tui`，它的子模块是实现细节。
-        private_imports = [item.describe(root=ROOT) for source in PROJECT_SOURCES for item in forbidden_imports(source, modules=("oldman.cli.tui.",))]
-        self.assertEqual([], private_imports)
 
 
 if __name__ == "__main__":

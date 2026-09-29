@@ -10,7 +10,7 @@
 
 ## 安装
 
-需要 Oldman 0.4.0 或更新版本（tui、ops、remote 随 0.4.0 发布，框架文档的上述页面也在那时公开）。发布之前，按框架文档在本项目的 `.venv` 里 [editable 安装框架源码](https://github.com/alexliyu7352/oldman/blob/main/docs/public/zh/agents/create-service.md#新项目使用本地-python-源码)；发布之后：
+需要 Oldman 0.4.0 或更新版本。tui、ops、remote 的源码和上面三篇文档都随 0.4.0 公开，**在那之前外部无法安装运行本 Demo**（`uv sync` 找不到这个版本，`run.sh` 的提示也就不适用）。能拿到框架源码的，可以按框架文档在本项目的 `.venv` 里 [editable 安装框架源码](https://github.com/alexliyu7352/oldman/blob/main/docs/public/zh/agents/create-service.md#新项目使用本地-python-源码)；0.4.0 发布之后：
 
 ```bash
 uv sync
@@ -83,7 +83,7 @@ OLDMAN_ANSWER_ADD_SITE_DOMAIN=api.example.org OLDMAN_ANSWER_ADD_SITE_PORT=9000 .
 
 ## 换成真实服务器
 
-只改配置，代码不变：
+要让它操作真实服务器，配置改成：
 
 ```yaml
 app_settings:
@@ -94,3 +94,8 @@ app_settings:
 ```
 
 这时工具会真的修改 `/etc` 并重启服务，需要以能写这些文件的用户运行。「重置沙箱」只对从样例建立的沙箱生效，不会动真实系统。
+
+这个 Demo 演示的是改配置文件、重启服务这些做法，没有处理真实系统之间的差异，用它管理服务器之前要按自己的系统补上。例如：
+
+- 「安全检查」只读主配置 `sshd_config`，没有读 `sshd_config.d/` 里的文件。SSH 服务对同一个设置取第一次出现的值，而这个目录里的文件先于主配置读到，云主机镜像常在那里写 `PasswordAuthentication yes`；这时检查会显示「正常」，修复写进主配置也不会生效。
+- 不同版本的系统改 SSH 端口的方式不一样，「SSH 端口」只演示了其中一种。

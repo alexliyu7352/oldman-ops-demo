@@ -80,9 +80,11 @@ async def show_operations() -> None:
 async def refresh_remote() -> None:
     with tui.spinner("下载远程文件"):
         refreshed = await remote.refresh()
-    if refreshed:
-        tui.success(f"已更新 {len(refreshed)} 个远程文件:{', '.join(refreshed)}")
-    else:
+    if refreshed.updated:
+        tui.success(f"已更新 {len(refreshed.updated)} 个远程文件:{', '.join(refreshed.updated)}")
+    for reason in refreshed.failed.values():
+        tui.warning(f"没有更新,继续用缓存里的旧文件:{reason}")
+    if not refreshed.updated and not refreshed.failed:
         tui.info("没有要更新的远程文件:基础地址是本地目录,或者还没有下载过。")
 
 
