@@ -1,0 +1,13 @@
+/.venv/
+__pycache__/
+/data/*_settings.yaml
+/data/*.db
+
+# Deployment state: the sandbox (with the fake systemctl's state), downloaded remote files,
+# remembered form answers, logs and pid files.
+/var/
+/data/remote/
+/data/answers/
+/logs/
+/pids/
+/.ruff_cache/

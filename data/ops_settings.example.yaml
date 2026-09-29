@@ -1,0 +1,12 @@
+apps:
+  - apps.ops
+database:
+  url: "sqlite+aiosqlite:///data/ops.db"
+app_settings:
+  ops:
+    # 远程文件的基础地址。开发时写本仓库的目录 remote,改完直接运行;生产上把 main 换成标签或提交号。
+    remote_base: https://raw.githubusercontent.com/alexliyu7352/oldman-ops-demo/main/remote
+    # 所有改动都落在这个目录里;真实服务器上是 /。
+    root: var/root
+    # 沙箱里的假 systemctl;真实服务器上是 [sudo, systemctl]。
+    systemctl: [bin/fake_systemctl.py, --state, var/root/run/fake-systemd]

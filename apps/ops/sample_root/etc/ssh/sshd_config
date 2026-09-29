@@ -1,0 +1,13 @@
+# Sample sshd_config for the sandbox; see sshd_config(5).
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+#Port 22
+#ListenAddress 0.0.0.0
+
+PermitRootLogin yes
+PasswordAuthentication yes
+KbdInteractiveAuthentication no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
