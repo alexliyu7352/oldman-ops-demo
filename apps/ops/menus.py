@@ -57,8 +57,9 @@ async def change_ssh_port() -> None:
 
 async def add_site() -> None:
     site = ask_site()
-    with tui.spinner(f"写入 {site.domain} 并重载 {site.engine}"):
-        reloaded = await services.add_site(site)
+    # Not inside a spinner: with a sudo that asks for a password, the redraw would wipe its prompt.
+    tui.info(f"写入 {site.domain} 并重载 {site.engine}…")
+    reloaded = await services.add_site(site)
     if reloaded:
         tui.success(f"已添加 {site.domain},{site.engine} 已重载。")
     else:

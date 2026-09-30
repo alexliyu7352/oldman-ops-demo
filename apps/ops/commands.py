@@ -57,6 +57,7 @@ class Report(Command):
 
     async def handle(self) -> None:
         _prepare()
-        with tui.spinner("检查服务"):
-            state = await services.report()
+        # Not inside a spinner: with a sudo that asks for a password, the redraw would wipe its prompt.
+        tui.info("检查服务…")
+        state = await services.report()
         tui.echo(json.dumps(state, ensure_ascii=False, indent=2))

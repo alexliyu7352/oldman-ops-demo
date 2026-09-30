@@ -10,7 +10,7 @@
 
 ## 安装
 
-需要 Oldman 0.4.0 或更新版本。tui、ops、remote 的源码和上面三篇文档都随 0.4.0 公开，**在那之前外部无法安装运行本 Demo**（`uv sync` 找不到这个版本，`run.sh` 的提示也就不适用）。能拿到框架源码的，可以按框架文档在本项目的 `.venv` 里 [editable 安装框架源码](https://github.com/alexliyu7352/oldman/blob/main/docs/public/zh/agents/create-service.md#新项目使用本地-python-源码)；0.4.0 发布之后：
+需要 Oldman 0.4 系列（tui、ops、remote 随 0.4.0 发布）。开发框架本身时，也可以按框架文档在本项目的 `.venv` 里 [editable 安装框架源码](https://github.com/alexliyu7352/oldman/blob/main/docs/public/zh/agents/create-service.md#新项目使用本地-python-源码)。从包索引安装：
 
 ```bash
 uv sync
@@ -34,14 +34,14 @@ uv sync
 | --- | --- | --- |
 | 系统信息 | 本地 | 读 os-release、systemd 状态，表格 |
 | SSH 端口 | 本地 | 带校验的提问；改 `Port`，Ubuntu 22.04 及以后另写 ssh.socket 的 override，再重启 ssh |
-| 添加站点 | 本地 | 表单（记住上次的答案）、等待提示、重载 nginx |
+| 添加站点 | 本地 | 表单（记住上次的答案）、重载 nginx |
 | Nginx | [`remote/nginx.py`](remote/nginx.py) | 远程文件自带的菜单，按沙箱里现有的站点生成；删除站点 |
 | 安全检查 | [`remote/security.py`](remote/security.py) | 检查 sshd 设置；多选要修复的项，进度条逐项修改 |
 | 内核参数 | [`remote/tuning.py`](remote/tuning.py) | 取远程数据文件 [`remote/data/sysctl.conf`](remote/data/sysctl.conf)，写进 sysctl.conf 的标记块 |
 | 清理操作记录 | [`remote/cleanup.py`](remote/cleanup.py) | 远程文件直接用工具的模型和数据库删除旧记录 |
 | 热修复 | [`remote/hotfix.sh`](remote/hotfix.sh) | 前台运行的 bash 脚本，`read` 直接读终端 |
 | 操作记录 | 本地 | 数据库里的操作记录 |
-| 更新远程文件 | 本地 | 重新下载已缓存的远程文件 |
+| 更新远程文件 | 本地 | 等待提示；重新下载已缓存的远程文件 |
 | 重置沙箱 | 本地 | 把沙箱恢复成样例 |
 
 按 Ctrl-C：在表单里是放弃这次填写、回到菜单；在菜单上等于选 0，子菜单返回上一级，顶层菜单退出。

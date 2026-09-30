@@ -21,8 +21,9 @@ async def show_sites() -> None:
 
 
 async def reload_nginx() -> None:
-    with tui.spinner("重载 nginx"):
-        await ops.systemd.reload("nginx", command=SYSTEMCTL)
+    # Not inside a spinner: with a sudo that asks for a password, the redraw would wipe its prompt.
+    tui.info("重载 nginx…")
+    await ops.systemd.reload("nginx", command=SYSTEMCTL)
     tui.success("nginx 已重载。")
 
 
