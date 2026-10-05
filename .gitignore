@@ -11,3 +11,6 @@ __pycache__/
 /logs/
 /pids/
 /.ruff_cache/
+
+# A demo follows the framework's version ranges; it keeps no lock file.
+/uv.lock
