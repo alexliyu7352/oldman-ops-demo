@@ -10,7 +10,7 @@
 
 ## 安装
 
-需要 Oldman 0.5 系列，0.5.0 及以上（tui、ops、remote 随 0.4.0 发布）。开发框架本身时，也可以按框架文档在本项目的 `.venv` 里 [editable 安装框架源码](https://github.com/alexliyu7352/oldman/blob/main/docs/public/zh/agents/create-service.md#新项目使用本地-python-源码)。从包索引安装：
+需要 Oldman 0.6 系列，0.6.0 及以上（tui、ops、remote 随 0.4.0 发布）。开发框架本身时，也可以按框架文档在本项目的 `.venv` 里 [editable 安装框架源码](https://github.com/alexliyu7352/oldman/blob/main/docs/public/en/agents/create-service.md#using-a-local-framework-checkout-instead-of-the-published-package)。从包索引安装：
 
 ```bash
 uv sync
